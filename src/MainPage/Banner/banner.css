@@ -1,0 +1,88 @@
+.banner{
+    background-image: url('/public/images/backFone.jpg');
+    min-height: 600px;
+    position: relative;
+    background-color: dimgrey;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5rem;
+    padding-left: 5rem;
+    color: var(--white);
+    text-align: left;
+    padding-bottom: 5rem;
+}
+.banner::after{
+    content: '';
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+}
+.banner__box, .banner__buttons{
+    width: 45%;
+    position: relative;
+    z-index: 1;
+}
+.banner__buttons{
+    padding-top: 4rem;
+    display: flex;
+    gap:5rem;
+}
+.buttons-block{
+    display: flex;
+    gap:2rem;
+    justify-content: space-between;
+    padding-top: 5rem;
+}
+.banner__title{
+    font-size: 3rem;
+    padding-bottom: 2rem;
+}
+.banner__content{
+    font-size: 1.5rem;
+}
+.button--reg{
+    color: white;
+    background: linear-gradient(148deg, rgba(62,149,255,1) 0%, rgba(0,64,245,1) 100%);
+}
+.button--reg:hover{
+    color: darkblue;
+    background: rgb(0,115,255);
+    background: linear-gradient(148deg, rgba(0,115,255,1) 0%, rgba(2,52,194,1) 100%);
+}
+.button--auth{
+    color: #2e4fe0;
+    background: linear-gradient(148deg, rgb(233, 238, 243) 0%, rgb(234, 235, 239) 100%);
+}
+
+.button--auth:hover{
+    color: white;
+    background: linear-gradient(148deg, rgb(168, 203, 238) 0%, rgb(135, 147, 197) 100%);
+}
+.button--save{
+    color: white;
+    background: linear-gradient(148deg, rgba(62,149,255,1) 0%, rgba(0,64,245,1) 100%);
+    height: 2rem;
+    padding:0.2rem;
+    font-size: 0.8rem;
+}
+.button--save:hover{
+    color: darkblue;
+    background: rgb(0,115,255);
+    background: linear-gradient(148deg, rgba(0,115,255,1) 0%, rgba(2,52,194,1) 100%);
+}
+.button--cancel{
+    color: #2e4fe0;
+    background: linear-gradient(148deg, rgb(233, 238, 243) 0%, rgb(234, 235, 239) 100%);
+    height: 2rem;
+    padding:0.2rem;
+    font-size: 0.8rem;
+}
+.button--cancel:hover{
+    color: darkblue;
+    background: rgb(0,115,255);
+    background: linear-gradient(148deg, rgba(0,115,255,1) 0%, rgba(2,52,194,1) 100%);
+}

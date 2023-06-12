@@ -1,0 +1,25 @@
+.for-whom{
+    padding: 4.5rem 2rem;
+    text-align: center;
+}
+
+.for-whom h2 p{
+    color: #61dafb;
+}
+
+.for-whom__block{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    gap:3rem;
+    width: 100%;
+}
+
+.for-whom__block-article{
+    text-align: center;
+    padding: 1rem 1rem;
+    width: calc(100% / 3 - 2rem);
+}
+.for-whom__block-icon{
+    min-width: 80px;
+}

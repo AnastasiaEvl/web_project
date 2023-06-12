@@ -1,0 +1,22 @@
+.footer{
+    background-color: #282c34;
+    color: white;
+    text-align: center;
+    padding: 1.6rem 0;
+    position: relative;
+}
+.footer__name{
+    position: relative;
+    padding-bottom: 1rem;
+}
+.footer::after{
+    position: absolute;
+    content:'';
+    width: 80%;
+    color: white;
+    background-color: white;
+    height: 0.05rem;
+    top:5rem;
+    left:5rem;
+    margin-top: 1rem;
+}

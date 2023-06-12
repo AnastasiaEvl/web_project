@@ -1,0 +1,26 @@
+.wrapper{
+    height: 100%;
+    width: 100%;
+}
+
+.block_two{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-left: 20%;
+    width: 60%;
+    margin-top: 80px;
+    color: beige;
+
+}
+.inner_text{
+    border: 1px solid transparent;
+    width: 20%;
+    background: linear-gradient(148deg, rgb(168, 203, 238) 0%, rgb(67, 85, 159) 100%);
+    border-radius: 4px;
+}
+
+#elTwo{
+    background-color: white;
+    padding-bottom: 50px;
+}

@@ -1,0 +1,39 @@
+.registration__section{
+    border: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.registration__title{
+    position: relative;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+.registration__title::after{
+    position: absolute;
+    display: flex;
+    align-content: center;
+    content:'';
+    width: 120%;
+    color: deepskyblue;
+    background-color: white;
+    height: 0.05rem;
+    top:2.8rem;
+    margin-top: 1rem;
+
+}
+.registration__label{
+    display: none;
+}
+.registration__input{
+    border: none;
+    border-bottom: 1px solid #0033cc;
+    background-color: transparent;
+    color: white;
+    width: 30rem;
+    gap: 2rem;
+}
+.registration__input::placeholder{
+    color: white;
+    font-size: 1rem;
+}

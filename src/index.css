@@ -1,13 +1,75 @@
 body {
   margin: 0;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
+:root{
+  --font-family-subtitle-btn:"Open Sans", fantasy;
+  --font-family-text-title:Raleway, sans-serif;
+  --black: black;
+  --white: #FFFFFF;
+  --dark-grey: #333333;
+  --light-grey:#c6cbcd;
+  --border-tabs: 1px solid #c6cbcd;
+  --border-white: 2px solid white;
+  --pink: #ec7979;
+  --light-grey-pricing:#F5F5F5;
+  --dark-grey-pricing: #FFFFFF80;
+  --middle-grey:#86878B;
+  --grey-for-message: #E2E2E2;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+li {
+  list-style-type: none;
+}
+
+li{
+  cursor: pointer;
+}
+button:hover{
+  cursor: pointer;
+  transition: 0.5s;
+  background-color: #86878B;
+}
+
+.button{
+  padding: 1rem;
+  width: 10rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 0px solid transparent;
+  transition: 2s;
 }

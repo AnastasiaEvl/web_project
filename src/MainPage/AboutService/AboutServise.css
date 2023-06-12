@@ -1,0 +1,28 @@
+.service{
+    padding-top: 5rem;
+    padding-right: 0;
+    padding-left: 2rem;
+}
+.service h2 p {
+    color: #61dafb;
+}
+.service__img{
+    width: 40%;
+}
+.service__content{
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap:0.5rem;
+}
+.service__article{
+    width: 40%;
+}
+
+.service__icon{
+    width: 40px;
+}
+.service__information{
+    display: flex;
+}

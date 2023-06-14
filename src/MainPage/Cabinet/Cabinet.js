@@ -5,7 +5,7 @@ import AddAccount from "./AddAccount";
 import AddBalanse from "./AddBalanse";
 import Person from "./Person";
 
-const TabContent = ({ title, content }) => (
+const TabContent = ({ title, content, first, second }) => (
   <div className="tabcontent">
     <table className="table">
       <thead>
@@ -13,20 +13,45 @@ const TabContent = ({ title, content }) => (
           <th colSpan="5">{title}</th>
         </tr>
       </thead>
-      <tbody>
-        {content.map((e, index) => (
-          <tr key={index}>
-            <td>{e.logo}</td>
-            <td>{e.name}</td>
-            <td>{e.balance}</td>
-            <td>{e.plus}</td>
-            <td>{e.minus}</td>
-          </tr>
-        ))}
-      </tbody>
+      {first && (
+        <tbody>
+          {content.map((e, index) => (
+            <tr key={index}>
+              <td>{e.logo}</td>
+              <td>{e.name}</td>
+              <td>{e.balance}</td>
+              <td id="visibility">
+                <button onClick={() => Add(e.id)}>+</button>
+              </td>
+              <td>
+                <button onClick={() => Minus(e.id)}>-</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      )}
+      {second && (
+        <tbody>
+          {content.map((e, index) => (
+            <tr key={index}>
+              <td>{e.logo}</td>
+              <td>{e.name}</td>
+              <td>{e.balance}</td>
+              <td>{e.comments}</td>
+            </tr>
+          ))}
+        </tbody>
+      )}
     </table>
   </div>
 );
+
+function Add(e) {
+  console.log(e);
+}
+function Minus(e) {
+  console.log(e);
+}
 
 const PersonArea = () => (
   <div className="personal">
@@ -41,9 +66,21 @@ export default function Cabinet() {
   const [addBalanse, setAddBalanse] = useState(false);
   const [addAccount, setAddAccount] = useState(false);
   const [personalArea, setPersonalArea] = useState(false);
+  const [first, setFirst] = useState(true);
+  const [second, setSecond] = useState(false);
   const openTab = (e) => (
     setActive(+e.target.dataset.index), setTable(true), setPersonalArea(false)
   );
+
+  function Change(e) {
+    if (+e.target.dataset.index === 0) {
+      setFirst(true);
+      setSecond(false);
+    } else {
+      setFirst(false);
+      setSecond(true);
+    }
+  }
 
   const money = { profileBalanse: "123$" };
 
@@ -52,52 +89,73 @@ export default function Cabinet() {
       title: "Аккаунт",
       content: [
         {
+          id: 1,
           logo: "dvp",
           name: "Advertising",
           balance: "123455",
-          plus: "+",
-          minus: "-",
         },
         {
+          id: 2,
           logo: "dvp",
           name: "Advertising",
           balance: "123455",
-          plus: "+",
-          minus: "-",
         },
         {
+          id: 3,
           logo: "ppp",
           name: "Reklama",
           balance: "66666",
-          plus: "+",
-          minus: "-",
         },
         {
+          id: 4,
           logo: "tbn",
           name: "ClientSoft",
           balance: "788",
-          plus: "+",
-          minus: "-",
         },
-        { logo: "dvp", name: "First", balance: "9999", plus: "+", minus: "-" },
         {
+          id: 5,
+          logo: "dvp",
+          name: "First",
+          balance: "9999",
+        },
+        {
+          id: 6,
           logo: "dvp",
           name: "SpecialRate",
           balance: "243",
+        },
+        {
+          id: 7,
+          logo: "dvp",
+          name: "Ind",
+          balance: "45434",
+        },
+        {
+          id: 8,
+          logo: "dvp",
+          name: "Five",
+          balance: "44432",
           plus: "+",
           minus: "-",
         },
-        { logo: "dvp", name: "Ind", balance: "45434", plus: "+", minus: "-" },
-        { logo: "dvp", name: "Five", balance: "44432", plus: "+", minus: "-" },
         {
+          id: 9,
           logo: "dvp",
           name: "Valley",
           balance: "56766",
-          plus: "+",
-          minus: "-",
         },
-        { logo: "dvp", name: "Golden", balance: "432", plus: "+", minus: "-" },
-        { logo: "dvp", name: "Lsst", balance: "3242q", plus: "+", minus: "-" },
+        {
+          id: 10,
+          logo: "dvp",
+          name: "Golden",
+          balance: "432",
+        },
+        {
+          id: 11,
+          logo: "dvp",
+          name: "Lsst",
+          balance: "3242q",
+        },
       ],
     },
     {
@@ -107,62 +165,60 @@ export default function Cabinet() {
           logo: "account number",
           name: "date",
           balance: "1111",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "3222",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "321321",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "312432",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "11434311",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "1113241",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "11432311",
-          plus: "comments",
+          comments: "comments",
         },
         {
           logo: "account number",
           name: "date",
           balance: "11122111",
-          plus: "comments",
+          comments: "comments",
         },
       ],
     },
   ];
 
   function addMoney() {
-    console.log("ok");
     setAddAccount(false);
     setModalActive(true);
     setAddBalanse(true);
   }
   function addAcc() {
-    console.log("OK");
     setAddBalanse(false);
     setModalActive(true);
     setAddAccount(true);
@@ -194,7 +250,10 @@ export default function Cabinet() {
             {items.map((n, i) => (
               <button
                 className={`button ${i === active ? "active" : ""}`}
-                onClick={openTab}
+                onClick={(e) => {
+                  openTab(e);
+                  Change(e);
+                }}
                 data-index={i}
               >
                 {n.title}
@@ -208,7 +267,9 @@ export default function Cabinet() {
               Кабинет
             </button>
           </div>
-          {items[active] && table && <TabContent {...items[active]} />}
+          {items[active] && table && (
+            <TabContent first={first} second={second} {...items[active]} />
+          )}
           {personalArea && <PersonArea></PersonArea>}
         </div>
 

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
-export default function AuthForm(props) {
+export default function AuthForm() {
   const [emailAuth, setEmailAuth] = useState("");
   const [passAuth, setPassAuth] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [ident, setIdent] = useState("");
 
   async function Auth(emailAuth, passAuth) {
     console.log(emailAuth, passAuth);
@@ -19,8 +21,8 @@ export default function AuthForm(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // setToken(data.token);
         console.log(data);
+        setIdent(data);
         setRedirect(true);
       })
       .catch((error) => console.error(error));

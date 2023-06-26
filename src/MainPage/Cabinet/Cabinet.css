@@ -74,7 +74,7 @@
     border-radius: 0 20px 0 0;
 }
 .table tbody td {
-    text-align: left;
+    text-align: center;
     border: none;
     padding: 10px 15px;
     font-size: 14px;
@@ -99,7 +99,7 @@
 .tab{
     display: flex;
     flex-direction: column;
-    padding-top: 4.3rem;
+    padding-top: 7rem;
     width: 10%;
 }
 
@@ -118,4 +118,10 @@
 .cabinet-style:active{
     background-color: #ec7979;
 
+}
+.money__div{
+    background-color: blue;
+    opacity:0.8;
+    color: white;
+    width: 50%;
 }

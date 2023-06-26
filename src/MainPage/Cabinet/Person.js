@@ -1,27 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./personal.css";
 
-export default function Person() {
+export default function Person({ inf, history }) {
   const [password, setPassword] = useState("");
   const [newPass, setNewPass] = useState("");
   const [adress, setAdress] = useState("");
   const [phone, setPhone] = useState("");
   const [bik, setBik] = useState("");
+  const [personal, setPersonal] = useState([]);
 
   function Personal(password, newPass, adress, phone, bik) {
     console.log(password, newPass, adress, phone, bik);
   }
-
-  const infos = [
-    { date: "10.03.2020", sum: "23456" },
-    { date: "12.06.2021", sum: "23456" },
-    { date: "24.02.2022", sum: "23456" },
-    { date: "14.01.2022", sum: "23456" },
-    { date: "12.04.2022", sum: "23456" },
-    { date: "11.05.2023", sum: "23456" },
-    { date: "9.08.2023", sum: "23456" },
-    { date: "5.03.2023", sum: "23456" },
-  ];
 
   return (
     <div className="personal__wrapper">
@@ -63,7 +53,7 @@ export default function Person() {
             type="text"
             name="adress"
             placeholder="Адрес"
-            value={adress}
+            value={inf.address}
             onChange={(e) => setAdress(e.target.value)}
             required
           />
@@ -74,7 +64,7 @@ export default function Person() {
             type="tel"
             name="phone"
             placeholder="Телефон"
-            value={phone}
+            value={inf.phoneNumber}
             onChange={(e) => setPhone(e.target.value)}
             required
           />
@@ -85,7 +75,7 @@ export default function Person() {
             type="number"
             name="bik"
             placeholder="БИК"
-            value={bik}
+            value={inf.bik}
             onChange={(e) => setBik(e.target.value)}
             required
           />
@@ -107,7 +97,7 @@ export default function Person() {
           </tr>
         </thead>
         <tbody>
-          {infos.map((e, index) => (
+          {history.map((e, index) => (
             <tr key={index}>
               <td>{e.date}</td>
               <td>{e.sum}</td>

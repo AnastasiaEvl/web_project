@@ -1,15 +1,29 @@
 import React, { useState } from "react";
 
-export default function AddAccount() {
-  const [google, setGoogle] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [tikTok, setTikTok] = useState("");
+export default function AddAccount({ inf, setModalActive, modalActive }) {
   const [name, setName] = useState("");
   const [theme, setTheme] = useState("");
   const [site, setSite] = useState("");
 
-  function AddAccount(google, facebook, tikTok, name, theme, site) {
-    console.log(google, facebook, tikTok, name, theme, site);
+  function AddAccount(name, theme, site) {
+    fetch("http://localhost:8080/account/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        site: site,
+        theme: theme,
+        cabinetId: inf.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("ok");
+        setModalActive(false);
+      })
+      .catch((error) => console.error(error));
   }
 
   return (
@@ -18,39 +32,6 @@ export default function AddAccount() {
         <legend className="registration__title">
           <h2>Добавление аккаунта</h2>
         </legend>
-        <label htmlFor="auth-email" className="registration__label"></label>
-        <input
-          id="auth-google"
-          className="registration__input"
-          type="url"
-          name="google"
-          placeholder="google"
-          value={google}
-          onChange={(e) => setGoogle(e.target.value)}
-          required
-        />
-        <label htmlFor="auth-facebook" className="registration__label"></label>
-        <input
-          id="auth-facebook"
-          className="registration__input"
-          type="url"
-          name="facebook"
-          placeholder="facebook"
-          value={facebook}
-          onChange={(e) => setFacebook(e.target.value)}
-          required
-        />
-        <label htmlFor="auth-tiktok" className="registration__label"></label>
-        <input
-          id="auth-tiktok"
-          className="registration__input"
-          type="url"
-          name="tiktok"
-          placeholder="tiktok"
-          value={tikTok}
-          onChange={(e) => setTikTok(e.target.value)}
-          required
-        />
         <label htmlFor="auth-name" className="registration__label"></label>
         <input
           id="auth-name"
@@ -89,7 +70,7 @@ export default function AddAccount() {
         type="submit"
         className="button button--save"
         form="authorization"
-        onClick={() => AddAccount(google, facebook, tikTok, name, theme, site)}
+        onClick={() => AddAccount(name, theme, site)}
       >
         Сохранить
       </button>

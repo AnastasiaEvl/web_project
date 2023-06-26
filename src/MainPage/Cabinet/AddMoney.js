@@ -1,27 +1,29 @@
 import React, { useState } from "react";
 
-export default function AddBalanse({ inf, modalActive, setModalActive }) {
-  const [sum, setSum] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
+export default function AddMoney({ element, money, setMoney, inf }) {
+  const [summ, setSumm] = useState("");
 
-  function AddSum(sum, cardNumber) {
-    console.log(sum, cardNumber);
-    fetch("http://localhost:8080/user/replenish", {
+  function AddMoneys(summ) {
+    console.log(summ);
+    fetch("http://localhost:8080/account/replenish", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        sum: sum,
+        sum: summ,
         cabinetId: inf.id,
+        adAccountId: money,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("ok");
-        setModalActive(false);
       })
       .catch((error) => console.error(error));
+  }
+  function Cancel() {
+    window.location.reload();
   }
 
   return (
@@ -31,36 +33,33 @@ export default function AddBalanse({ inf, modalActive, setModalActive }) {
           <legend className="registration__title">
             <h2>Пополнение баланса</h2>
           </legend>
-          <label htmlFor="user-sum" className="registration__label"></label>
+          <label htmlFor="sum" className="registration__label"></label>
           <input
-            id="user-sum"
+            id="sum"
             className="registration__input"
             type="number"
             name="sum"
-            value={sum}
+            value={summ}
             placeholder="Введите сумму"
             required
-            onChange={(data) => setSum(data.target.value)}
-          />
-          <label htmlFor="user-card" className="registration__label"></label>
-          <input
-            id="user-card"
-            className="registration__input"
-            type="number"
-            value={cardNumber}
-            onChange={(data) => setCardNumber(data.target.value)}
-            name="cardNumber"
-            placeholder="Введите номер карты"
-            required
+            onChange={(data) => setSumm(data.target.value)}
           />
         </fieldset>
         <button
           type="submit"
           className="button button--save"
           form="addBalnse"
-          onClick={() => AddSum(sum, cardNumber)}
+          onClick={() => AddMoneys(summ)}
         >
           Сохранить
+        </button>
+        <button
+          type="cancel"
+          className="button button--save"
+          form="addBalnse"
+          onClick={() => Cancel()}
+        >
+          Отмена
         </button>
       </form>
     </div>

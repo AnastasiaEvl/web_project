@@ -1,66 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Cabinet.css";
 import Modal from "../Modal/Modal";
 import AddAccount from "./AddAccount";
 import AddBalanse from "./AddBalanse";
 import Person from "./Person";
+import AddMoney from "./AddMoney";
+import ModalTwo from "../Modal/ModalTwo";
 
-const TabContent = ({ title, content, first, second }) => (
-  <div className="tabcontent">
-    <table className="table">
-      <thead>
-        <tr>
-          <th colSpan="5">{title}</th>
-        </tr>
-      </thead>
-      {first && (
-        <tbody>
-          {content.map((e, index) => (
-            <tr key={index}>
-              <td>{e.logo}</td>
-              <td>{e.name}</td>
-              <td>{e.balance}</td>
-              <td id="visibility">
-                <button onClick={() => Add(e.id)}>+</button>
-              </td>
-              <td>
-                <button onClick={() => Minus(e.id)}>-</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      )}
-      {second && (
-        <tbody>
-          {content.map((e, index) => (
-            <tr key={index}>
-              <td>{e.logo}</td>
-              <td>{e.name}</td>
-              <td>{e.balance}</td>
-              <td>{e.comments}</td>
-            </tr>
-          ))}
-        </tbody>
-      )}
-    </table>
-  </div>
-);
-
-function Add(e) {
-  console.log(e);
-}
-function Minus(e) {
-  console.log(e);
-}
-
-const PersonArea = () => (
-  <div className="personal">
-    <Person></Person>
-  </div>
-);
-
-export default function Cabinet() {
+export default function Cabinet({ ident }) {
   const [modalActive, setModalActive] = useState(false);
+  const [modalActiveTwo, setModalActiveTwo] = useState(false);
   const [table, setTable] = useState(true);
   const [active, setActive] = React.useState(0);
   const [addBalanse, setAddBalanse] = useState(false);
@@ -68,148 +17,105 @@ export default function Cabinet() {
   const [personalArea, setPersonalArea] = useState(false);
   const [first, setFirst] = useState(true);
   const [second, setSecond] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [redirectMain, setRedirectMain] = useState(false);
+  const [datas, setData] = useState([]);
+  const [inf, setInf] = useState("");
+  const [accounts, setAccounts] = useState([]);
+  const [element, setElement] = useState("");
+  const [money, setMoney] = useState("");
+  const [mon, setMon] = useState(false);
+
+  useEffect(() => {
+    CabinetInf();
+    getAccounts();
+  }, []);
+
+  function CabinetInf() {
+    fetch(`http://localhost:8080/user/login/` + 1, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setInf(data);
+      })
+      .catch((error) => console.error(error));
+  }
+  function getAccounts() {
+    fetch(`http://localhost:8080/account/all/` + 1, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setAccounts(data);
+      })
+      .catch((error) => console.error(error));
+  }
+
   const openTab = (e) => (
     setActive(+e.target.dataset.index), setTable(true), setPersonalArea(false)
   );
+
+  function Exit() {
+    fetch(`http://localhost:8080/user/logout/` + 1, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRedirectMain(true);
+      })
+      .catch((error) => console.error(error));
+  }
+
+  if (redirectMain) {
+    window.location = "/";
+  }
 
   function Change(e) {
     if (+e.target.dataset.index === 0) {
       setFirst(true);
       setSecond(false);
+      console.log(ident);
+      getAccounts();
     } else {
       setFirst(false);
       setSecond(true);
+      console.log(ident);
+      getHistory();
     }
   }
 
-  const money = { profileBalanse: "123$" };
+  function getHistory() {
+    fetch("http://localhost:8080/history/account/all/" + 1, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setHistory(data);
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
+  }
 
   const items = [
     {
       title: "Аккаунт",
-      content: [
-        {
-          id: 1,
-          logo: "dvp",
-          name: "Advertising",
-          balance: "123455",
-        },
-        {
-          id: 2,
-          logo: "dvp",
-          name: "Advertising",
-          balance: "123455",
-        },
-        {
-          id: 3,
-          logo: "ppp",
-          name: "Reklama",
-          balance: "66666",
-        },
-        {
-          id: 4,
-          logo: "tbn",
-          name: "ClientSoft",
-          balance: "788",
-        },
-        {
-          id: 5,
-          logo: "dvp",
-          name: "First",
-          balance: "9999",
-        },
-        {
-          id: 6,
-          logo: "dvp",
-          name: "SpecialRate",
-          balance: "243",
-        },
-        {
-          id: 7,
-          logo: "dvp",
-          name: "Ind",
-          balance: "45434",
-        },
-        {
-          id: 8,
-          logo: "dvp",
-          name: "Five",
-          balance: "44432",
-          plus: "+",
-          minus: "-",
-        },
-        {
-          id: 9,
-          logo: "dvp",
-          name: "Valley",
-          balance: "56766",
-        },
-        {
-          id: 10,
-          logo: "dvp",
-          name: "Golden",
-          balance: "432",
-        },
-        {
-          id: 11,
-          logo: "dvp",
-          name: "Lsst",
-          balance: "3242q",
-        },
-      ],
     },
     {
       title: "История",
-      content: [
-        {
-          logo: "account number",
-          name: "date",
-          balance: "1111",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "3222",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "321321",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "312432",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "11434311",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "1113241",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "11432311",
-          comments: "comments",
-        },
-        {
-          logo: "account number",
-          name: "date",
-          balance: "11122111",
-          comments: "comments",
-        },
-      ],
     },
   ];
 
@@ -232,9 +138,11 @@ export default function Cabinet() {
     <div className="wrapper">
       <section className="cabinet">
         <header className="cabinet__header">
-          <h2>NAME</h2>
+          <h2>AD</h2>
           <p>
-            Баланс пользователя:<span>{money.profileBalanse}</span>
+            <span>
+              Баланс пользователя: <p>{inf.balance}</p>
+            </span>
           </p>
           <button className="button button--cancel" onClick={() => addMoney()}>
             Пополнить счет
@@ -242,7 +150,9 @@ export default function Cabinet() {
           <button className="button button--save" onClick={() => addAcc()}>
             Добавить аккаунт
           </button>
-          <button className="button button--cancel">Выход</button>
+          <button className="button button--cancel" onClick={() => Exit()}>
+            Выход
+          </button>
         </header>
 
         <div className="cabinet__main">
@@ -268,14 +178,42 @@ export default function Cabinet() {
             </button>
           </div>
           {items[active] && table && (
-            <TabContent first={first} second={second} {...items[active]} />
+            <TabContent
+              first={first}
+              datas={datas}
+              second={second}
+              history={history}
+              accounts={accounts}
+              money={money}
+              mon={mon}
+              setMoney={setMoney}
+              setModalActiveTwo={setModalActiveTwo}
+              inf={inf}
+              {...items[active]}
+            />
           )}
-          {personalArea && <PersonArea></PersonArea>}
+          {personalArea && (
+            <PersonArea inf={inf} history={history}></PersonArea>
+          )}
         </div>
 
         <Modal active={modalActive} setActive={setModalActive}>
-          {addBalanse && <AddBalanse />}
-          {addAccount && <AddAccount />}
+          {addBalanse && (
+            <AddBalanse
+              modalActive={modalActive}
+              setModalActive={setModalActive}
+              inf={inf}
+            />
+          )}
+
+          {addAccount && (
+            <AddAccount
+              modalActive={modalActive}
+              setModalActive={setModalActive}
+              inf={inf}
+            />
+          )}
+
           <section className="buttons-block">
             <button
               className="button button--cancel"
@@ -290,3 +228,82 @@ export default function Cabinet() {
     </div>
   );
 }
+
+const TabContent = ({
+  title,
+  first,
+  second,
+  history,
+  accounts,
+  modalActive,
+  setModalActive,
+  money,
+  mon,
+  setMoney,
+  setMon,
+  setElement,
+  setModalActiveTwo,
+  element,
+  modalActiveTwo,
+  inf,
+}) => (
+  <div className="tabcontent">
+    <table className="table">
+      <thead>
+        <tr>
+          <th colSpan="5">{title}</th>
+        </tr>
+      </thead>
+      {first && (
+        <tbody>
+          <tr>
+            <th>Номер</th>
+            <th>Имя аккаунта</th>
+            <th>Баланс</th>
+            <th>Пополнить баланс</th>
+          </tr>
+          {accounts.map((e, index) => (
+            <tr key={index}>
+              <td>{e.id}</td>
+              <td>{e.name}</td>
+              <td>{e.balance}</td>
+              <td id="visibility">
+                <button onClick={() => Add(e.id)}>+</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      )}
+      {second && (
+        <tbody>
+          <tr>
+            <th>Имя аккаунта</th>
+            <th>Дата транзакции</th>
+            <th>Баланс</th>
+          </tr>
+          {history.map((n, index) => (
+            <tr key={index}>
+              <td>{n.accountName}</td>
+              <td>{n.date}</td>
+              <td>{n.sum}</td>
+            </tr>
+          ))}
+        </tbody>
+      )}
+    </table>
+    {mon && (
+      <div className="money__div">
+        <AddMoney money={money} setMoney={setMoney} inf={inf} />
+      </div>
+    )}
+  </div>
+);
+
+function Add(e) {
+  console.log(e);
+}
+const PersonArea = ({ inf, history }) => (
+  <div className="personal">
+    <Person inf={inf} history={history}></Person>
+  </div>
+);

@@ -1,6 +1,7 @@
 .personal__wrapper{
     display: flex;
     justify-content: space-around;
+    padding-top: 8rem;
 }
 
 .personal__table {
